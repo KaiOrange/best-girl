@@ -2,7 +2,7 @@
   "name": "best-girl",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://kaiorange.github.io/best-girl/build",
+  "homepage": "./build",
   "main": "./build/index.html",
   "dependencies": {
     "jsonp": "^0.2.1",
