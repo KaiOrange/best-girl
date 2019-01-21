@@ -1,0 +1,10 @@
+.img-cord{
+    border-radius: 6px;
+    position: absolute;
+    animation: move-down 4s ease-in;
+}
+@keyframes move-down{
+    to{
+        top:100vh;
+    }
+}
