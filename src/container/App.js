@@ -24,6 +24,7 @@ class App extends Component {
         this.minContainerNumber = 10;//最小容量
         this.maxCacheNumber = 20;//最大缓存容量
         this.cacheImgDatas = [];//需要删除掉的图片信息
+        this.clientWidth = 980;//浏览器的宽度
     }
     getURL = (obj={})=>{
         return URI(this.baseURL).query({
@@ -48,12 +49,23 @@ class App extends Component {
             this.allImgDatas = this.allImgDatas.concat(newImgDatas)
         });
     }
+
+    setClientWidth = ()=>{
+        this.clientWidth = document.body.clientWidth;
+    }
     
     componentDidMount() {
+        this.setClientWidth();
         //首先进来请求一下数据
         this.fetchData();
         //然后设置定时器
         this.startTimeTic();
+        window.addEventListener("resize",this.setClientWidth);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timer);
+        window.removeEventListener("resize",this.setClientWidth);
     }
 
     startTimeTic(){
@@ -64,7 +76,8 @@ class App extends Component {
                 }
                 if (this.allImgDatas.length > 0) {
                     let currentImg = this.allImgDatas.splice(0,1)[0];
-                    currentImg.left = Math.random() * (document.body.clientWidth - Number(currentImg.thumb_width||currentImg.width));
+                    let imgWidth = Math.min(Number(currentImg.thumb_width||currentImg.width),this.clientWidth * 35 / 100);
+                    currentImg.left = Math.random() * (this.clientWidth - imgWidth);
                     currentImg.delayTime = Math.random() * 3;
                     currentImg.durationTime = Math.random() * 5 + 3;
                     old.imgDatas.push(currentImg);//每次拿最前面的一个
@@ -81,12 +94,6 @@ class App extends Component {
             })
         }, 1500);
     }
-    
-    componentWillUnmount() {
-        clearInterval(this.timer)
-    }
-    
-    
 
     handleDeleteImg = (item)=>{
         //放入要删除的缓存中
