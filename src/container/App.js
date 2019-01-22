@@ -3,12 +3,17 @@ import jsonp from 'jsonp';
 import './App.css';
 import URI from 'urijs';
 import ImgCord from '../component/ImgCord';
+import ToolButton from '../component/ToolButton';
+import ImageModal from '../component/ImageModal';
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            imgDatas: []
+            imgDatas: [],
+            bgColor:window.localStorage.getItem("bgColor"),
+            isShow:false,
+            imgInfo:null
         };
         this.baseURL = "https://pic.sogou.com/pics";
         this.pageNumber = 50;
@@ -88,13 +93,34 @@ class App extends Component {
         this.cacheImgDatas.push(item)
     }
 
+    handleSelectColor = (color)=>{
+        this.setState({bgColor:color},()=>{
+            window.localStorage.setItem("bgColor",color)
+        });
+    }
+
+    handleImgClick = (item)=>{
+        this.setState({
+            isShow:true,
+            imgInfo:item
+        });
+    }
+
+    handleModalClose = ()=>{
+        this.setState({
+            isShow:false,
+        });
+    }
+
     render() {
+        let {bgColor,isShow,imgInfo} = this.state;
         return (
-        <div className="App">
-            <header className="App-header">
+        <div className="App" style={{backgroundColor:bgColor}}>
+            <header className="App-header" >
                 <div className="center">
                     <div className="dialogue-text hinge">一大波美女正在靠近</div>
                 </div>
+                <ToolButton handleSelectColor={this.handleSelectColor}/>
                 {this.state.imgDatas.map((item)=>{
                     let src = item.thumbUrl || item.pic_url;
                     if (!src) {
@@ -109,10 +135,12 @@ class App extends Component {
                             title={item.title} 
                             style={{top:-top,left:item.left+"px",animationDelay: item.delayTime+"s",animationDuration:item.durationTime+"s"}}
                             onAnimationEnd={this.handleDeleteImg.bind(this,item)}
+                            onClick={this.handleImgClick.bind(this,item)}
                             />
                     )
                 })}
             </header>
+            <ImageModal isShow={isShow} imgInfo={imgInfo} onClose={this.handleModalClose}/>
         </div>
         );
     }
