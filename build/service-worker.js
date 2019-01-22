@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/best-girl/precache-manifest.1f98688aad9e257e2f595dbb4f465d4f.js"
+  "/best-girl/precache-manifest.e383a7732cac3d9b7dd6ea484cb43856.js"
 );
 
 workbox.clientsClaim();
