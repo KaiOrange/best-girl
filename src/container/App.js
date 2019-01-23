@@ -18,13 +18,16 @@ class App extends Component {
             imgInfo:null,
             isDocumentHidden:false//文档是否隐藏
         };
-        let colorIndex = COLORS.findIndex((item)=>{
-            return item.color === bgColor;
-        })
+        this.word = "美女";
+        if (bgColor) {
+            let colorIndex = COLORS.findIndex((item)=>{
+                return item.color === bgColor;
+            })
+            this.word = COLORS[colorIndex].keywords || this.word;
+        }
         this.baseURL = "https://pic.sogou.com/pics";
         this.pageNumber = 50;
         this.currentPage = 0;
-        this.word = COLORS[colorIndex].keywords || "aaaaa";
         this.timer = null;//定时器
         this.allImgDatas = [];//所有的图片信息
         this.minContainerNumber = 10;//最小容量
@@ -45,7 +48,6 @@ class App extends Component {
     }
     fetchData = ()=>{
         jsonp(this.getURL({word:this.word,pageNumber:this.pageNumber,currentPage:this.currentPage}), {},(err, data)=>{
-            console.log(data)
             var newImgDatas = data.items||[];
             if (newImgDatas.length === 0) {
                 this.currentPage = 0;

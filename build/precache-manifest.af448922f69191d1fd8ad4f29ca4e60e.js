@@ -4,19 +4,19 @@ self.__precacheManifest = [
     "url": "/best-girl/static/js/runtime~main.f8d99e38.js"
   },
   {
-    "revision": "c1c914e966ded8a50253",
-    "url": "/best-girl/static/js/main.c1c914e9.chunk.js"
+    "revision": "6fa9fc9a74a723fbfe2f",
+    "url": "/best-girl/static/js/main.6fa9fc9a.chunk.js"
   },
   {
     "revision": "cedfd2df7695222da16b",
     "url": "/best-girl/static/js/1.cedfd2df.chunk.js"
   },
   {
-    "revision": "c1c914e966ded8a50253",
+    "revision": "6fa9fc9a74a723fbfe2f",
     "url": "/best-girl/static/css/main.9f9f33c1.chunk.css"
   },
   {
-    "revision": "159940ad13e6838e0cfa6b9a929687d7",
+    "revision": "c10d59d60df770c8f3e209e06fb93414",
     "url": "/best-girl/index.html"
   }
 ];
