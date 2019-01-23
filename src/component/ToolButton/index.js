@@ -21,7 +21,7 @@ class ToolButton extends React.Component {
             <div className="tool-button-colors" style={{width:isShowColors?(colors.length * 1.5)+"rem":"0",opacity:isShowColors?"1":"0"}}>
                 {colors.map(item=>{
                     return <div key={item.color} className="tool-button-color" style={{background:item.color}} title={item.title} onClick={()=>{
-                        handleSelectColor(item.color)
+                        handleSelectColor(item)
                     }}></div>;
                 })}
             </div>
@@ -35,22 +35,7 @@ ToolButton.propTypes = {
 };
 
 ToolButton.defaultProps = {
-    colors:[{
-        color:"#282c34",
-        title:"黑夜"
-    },{
-        color:"#aaa",
-        title:"白昼"
-    },{
-        color:"#c1e6f7",
-        title:"淡蓝之光"
-    },{
-        color:"#ffc9c9",
-        title:"粉红诱惑"
-    },{
-        color:"#f7a374",
-        title:"活力橙色"
-    }],
+    colors:[],
     handleSelectColor:()=>{}
 };
 

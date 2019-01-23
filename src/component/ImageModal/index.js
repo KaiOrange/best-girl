@@ -16,7 +16,6 @@ class ImageModal extends React.Component {
 
     warpBGBlur = (isShow)=>{
         let appHeader = document.querySelector(".App-header");
-        debugger;
         if (isShow) {
             appHeader.classList.add("blur");
         } else {
@@ -35,7 +34,7 @@ class ImageModal extends React.Component {
             <div style={{display:isShow?"block":"none"}}>
                 <div className="modal-backdrop">
                     <div className="modal-img" onClick={(e)=>{e.preventDefault()}}>
-                        <img src={imgInfo.thumbUrl} aLT="图片加载失败" title={imgInfo.title}></img>
+                        <img src={imgInfo.thumbUrl} alt="图片加载失败" title={imgInfo.title}></img>
                         <div className="modal-close-btn" onClick={onClose}/>
                     </div>
                 </div>

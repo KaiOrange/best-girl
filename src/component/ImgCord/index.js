@@ -11,9 +11,13 @@ class ImgCord extends React.Component {
         this.setState({ someKey: 'otherValue' });
     }
     render() {
-        let {alt,...otherProps} = this.props;
-        return <img className="img-cord" alt={alt} {...otherProps} />;
+        let {alt,className,...otherProps} = this.props;
+        return <img className={"img-cord " + className} alt={alt} {...otherProps} />;
     }
 }
+
+ImgCord.defaultProps = {
+    className:""
+};
 
 export default ImgCord;

@@ -5,26 +5,33 @@ import URI from 'urijs';
 import ImgCord from '../component/ImgCord';
 import ToolButton from '../component/ToolButton';
 import ImageModal from '../component/ImageModal';
+import COLORS from './colors.json';
 
 class App extends Component {
     constructor(props) {
         super(props);
+        let bgColor = window.localStorage.getItem("bgColor");
         this.state = {
             imgDatas: [],
-            bgColor:window.localStorage.getItem("bgColor"),
+            bgColor:bgColor,
             isShow:false,
-            imgInfo:null
+            imgInfo:null,
+            isDocumentHidden:false//文档是否隐藏
         };
+        let colorIndex = COLORS.findIndex((item)=>{
+            return item.color === bgColor;
+        })
         this.baseURL = "https://pic.sogou.com/pics";
         this.pageNumber = 50;
         this.currentPage = 0;
-        this.word = "美女";
+        this.word = COLORS[colorIndex].keywords || "aaaaa";
         this.timer = null;//定时器
         this.allImgDatas = [];//所有的图片信息
         this.minContainerNumber = 10;//最小容量
         this.maxCacheNumber = 20;//最大缓存容量
         this.cacheImgDatas = [];//需要删除掉的图片信息
         this.clientWidth = 980;//浏览器的宽度
+        this.hiddenNamesObj = this.getHiddenName();
     }
     getURL = (obj={})=>{
         return URI(this.baseURL).query({
@@ -53,23 +60,82 @@ class App extends Component {
     setClientWidth = ()=>{
         this.clientWidth = document.body.clientWidth;
     }
+
+    setDocumentIsHidden = ()=>{
+        this.setState({
+            isDocumentHidden:document[this.hiddenNamesObj.hidden]
+        });
+    }
     
     componentDidMount() {
+        document.addEventListener(this.hiddenNamesObj.visibilityChange, this.setDocumentIsHidden);
         this.setClientWidth();
         //首先进来请求一下数据
         this.fetchData();
         //然后设置定时器
         this.startTimeTic();
         window.addEventListener("resize",this.setClientWidth);
+        this.initConsoleKeywords()
     }
 
     componentWillUnmount() {
+        document.removeEventListener(this.hiddenNamesObj.visibilityChange, this.setDocumentIsHidden);
         clearInterval(this.timer);
         window.removeEventListener("resize",this.setClientWidth);
     }
 
+    initConsoleKeywords=()=>{
+        let that = this;
+        console.log("祝贺你喜提彩蛋~\n你可以在这里设置搜索图片的关键字，口令如下：\nkeywords=\"美女\"");
+        Object.defineProperty(window,"keywords",{
+            get:function (){
+                return that.word;    
+            },
+            set:function (value){
+                if (typeof value !== "string") {
+                    console.warn("别忽悠我，关键字必须是字符串！~~~~(>_<)~~~~ ")
+                } else if(!value){
+                    console.warn("至少写几个关键字吧！(～ o ～)~zZ")
+                } else {
+                    console.info("关键字设置成功! O(∩_∩)O哈哈~")
+                    that.resetKeywords.call(that,value)
+                }
+            }
+        });
+    }
+
+    resetKeywords(keywords){
+        this.allImgDatas = [];
+        this.currentPage = 0;
+        this.word = keywords;
+    }
+
+    getHiddenName(){
+        var hidden, visibilityChange;
+        if (typeof document.hidden !== "undefined") {
+            hidden = "hidden";
+            visibilityChange = "visibilitychange";
+        } else if (typeof document.mozHidden !== "undefined") {
+            hidden = "mozHidden";
+            visibilityChange = "mozvisibilitychange";
+        } else if (typeof document.msHidden !== "undefined") {
+            hidden = "msHidden";
+            visibilityChange = "msvisibilitychange";
+        } else if (typeof document.webkitHidden !== "undefined") {
+            hidden = "webkitHidden";
+            visibilityChange = "webkitvisibilitychange";
+        }
+        return {
+            hidden,
+            visibilityChange
+        }
+    }
+
     startTimeTic(){
         this.timer = setInterval(() => {
+            if (this.state.isDocumentHidden) {//如果界面隐藏了 那么直接跳过
+                return ;
+            }
             this.setState((old)=>{
                 if (this.allImgDatas.length <= this.minContainerNumber) {
                     this.fetchData();
@@ -78,13 +144,12 @@ class App extends Component {
                     let currentImg = this.allImgDatas.splice(0,1)[0];
                     let imgWidth = Math.min(Number(currentImg.thumb_width||currentImg.width),this.clientWidth * 35 / 100);
                     currentImg.left = Math.random() * (this.clientWidth - imgWidth);
-                    currentImg.delayTime = Math.random() * 3;
+                    currentImg.delayTime = Math.random() * 1;
                     currentImg.durationTime = Math.random() * 5 + 3;
                     old.imgDatas.push(currentImg);//每次拿最前面的一个
                 }
                 //清空缓存数据
                 if (this.cacheImgDatas.length > this.maxCacheNumber) {
-                    debugger;
                     old.imgDatas = old.imgDatas.filter((item)=>{
                         return !~this.cacheImgDatas.indexOf(item);
                     })
@@ -100,10 +165,17 @@ class App extends Component {
         this.cacheImgDatas.push(item)
     }
 
-    handleSelectColor = (color)=>{
-        this.setState({bgColor:color},()=>{
-            window.localStorage.setItem("bgColor",color)
-        });
+    handleSelectColor = (item)=>{
+        if (this.state.bgColor !== item.color) {
+            this.setState(old=>{
+                old.bgColor = item.color;
+                return old;
+            },()=>{
+                //重新设置关键字
+                this.resetKeywords(item.keywords)
+                window.localStorage.setItem("bgColor",item.color)
+            });
+        }
     }
 
     handleImgClick = (item)=>{
@@ -120,14 +192,15 @@ class App extends Component {
     }
 
     render() {
-        let {bgColor,isShow,imgInfo} = this.state;
+        let {bgColor,isShow,imgInfo,isDocumentHidden} = this.state;
+        let animationPlayState = isDocumentHidden?"paused":"running";
         return (
         <div className="App" style={{backgroundColor:bgColor}}>
             <header className="App-header" >
                 <div className="center">
                     <div className="dialogue-text hinge">一大波美女正在靠近</div>
                 </div>
-                <ToolButton handleSelectColor={this.handleSelectColor}/>
+                <ToolButton handleSelectColor={this.handleSelectColor} colors={COLORS}/>
                 {this.state.imgDatas.map((item)=>{
                     let src = item.thumbUrl || item.pic_url;
                     if (!src) {
@@ -140,7 +213,13 @@ class App extends Component {
                             src={src} 
                             alt={item.alt} 
                             title={item.title} 
-                            style={{top:-top,left:item.left+"px",animationDelay: item.delayTime+"s",animationDuration:item.durationTime+"s"}}
+                            style={{
+                                top:-top,
+                                left:item.left+"px",
+                                animationDelay: item.delayTime+"s",
+                                animationDuration:item.durationTime+"s",
+                                animationPlayState:animationPlayState
+                            }}
                             onAnimationEnd={this.handleDeleteImg.bind(this,item)}
                             onClick={this.handleImgClick.bind(this,item)}
                             />

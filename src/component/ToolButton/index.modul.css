@@ -16,7 +16,7 @@
     width: var(--icon-width);
     height: var(--icon-width);
 
-    background: url("./tools.png") center right/1.6rem no-repeat;
+    background: url("./tools.png") center right 0.3rem/1.6rem no-repeat;
     cursor: pointer;
 }
 .tool-button-colors{
