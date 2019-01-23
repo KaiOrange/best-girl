@@ -1,13 +1,13 @@
 {
-  "main.css": "/best-girl/static/css/main.e9ab402f.chunk.css",
-  "main.js": "/best-girl/static/js/main.57979dff.chunk.js",
-  "main.js.map": "/best-girl/static/js/main.57979dff.chunk.js.map",
-  "static/js/1.4f0aeb20.chunk.js": "/best-girl/static/js/1.4f0aeb20.chunk.js",
-  "static/js/1.4f0aeb20.chunk.js.map": "/best-girl/static/js/1.4f0aeb20.chunk.js.map",
+  "main.css": "/best-girl/static/css/main.9f9f33c1.chunk.css",
+  "main.js": "/best-girl/static/js/main.c1c914e9.chunk.js",
+  "main.js.map": "/best-girl/static/js/main.c1c914e9.chunk.js.map",
+  "static/js/1.cedfd2df.chunk.js": "/best-girl/static/js/1.cedfd2df.chunk.js",
+  "static/js/1.cedfd2df.chunk.js.map": "/best-girl/static/js/1.cedfd2df.chunk.js.map",
   "runtime~main.js": "/best-girl/static/js/runtime~main.f8d99e38.js",
   "runtime~main.js.map": "/best-girl/static/js/runtime~main.f8d99e38.js.map",
-  "static/css/main.e9ab402f.chunk.css.map": "/best-girl/static/css/main.e9ab402f.chunk.css.map",
+  "static/css/main.9f9f33c1.chunk.css.map": "/best-girl/static/css/main.9f9f33c1.chunk.css.map",
   "index.html": "/best-girl/index.html",
-  "precache-manifest.ff33ba7cc707d8de7af804917baaffca.js": "/best-girl/precache-manifest.ff33ba7cc707d8de7af804917baaffca.js",
+  "precache-manifest.373ab7952b2cb8329509675eb0a268aa.js": "/best-girl/precache-manifest.373ab7952b2cb8329509675eb0a268aa.js",
   "service-worker.js": "/best-girl/service-worker.js"
 }
