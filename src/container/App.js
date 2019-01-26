@@ -23,7 +23,9 @@ class App extends Component {
             let colorIndex = COLORS.findIndex((item)=>{
                 return item.color === bgColor;
             })
-            this.word = COLORS[colorIndex].keywords || this.word;
+            if(colorIndex > -1){
+                this.word = COLORS[colorIndex].keywords || this.word;
+            }
         }
         this.baseURL = "https://pic.sogou.com/pics";
         this.pageNumber = 50;

@@ -18,6 +18,7 @@
     position: relative;
 }
 .modal-img>img{
+    border-radius: 6px;
     max-width: 95vw;
     max-height: 95vh;
 }
