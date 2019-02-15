@@ -42,7 +42,7 @@
 .modal-close-btn:hover{
     border: 1px dashed red;
     color:red;
-    transform: rotate(180deg);
+    transform: rotate(90deg);
 }
 
 .modal-close-btn::before{

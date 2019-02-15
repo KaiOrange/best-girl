@@ -161,7 +161,7 @@ class App extends Component {
                 }
                 return old;
             })
-        }, 1500);
+        }, 1000);
     }
 
     handleDeleteImg = (item)=>{
@@ -202,7 +202,7 @@ class App extends Component {
         <div className="App" style={{backgroundColor:bgColor}}>
             <header className="App-header" >
                 <div className="center">
-                    <div className="dialogue-text hinge">一大波美女正在靠近</div>
+                    <div className="dialogue-text hinge" style={{animationDelay: ".8s"}}>一大波美女正在靠近</div>
                 </div>
                 <ToolButton handleSelectColor={this.handleSelectColor} colors={COLORS}/>
                 {this.state.imgDatas.map((item)=>{
