@@ -11,6 +11,7 @@
     align-items:center;
     transition: all .3s ease-in-out;
     z-index:10;
+    justify-content:flex-end;
 }
 .tool-button-icon{
     width: var(--icon-width);
@@ -18,11 +19,12 @@
 
     background: url("./tools.png") center right 0.3rem/1.6rem no-repeat;
     cursor: pointer;
+    user-select: none;
 }
 .tool-button-colors{
-    display: flex;
-    align-items:center;
     transition: all .3s ease-in-out;
+    height: var(--icon-width);
+    overflow: hidden;
 }
 .tool-button-color{
     width: 0.8rem;
@@ -30,4 +32,7 @@
     margin-left: calc(var(--icon-width) / 2 - 0.4rem);
     border-radius: 50%;
     cursor: pointer;
+    display: inline-block;
+    vertical-align: text-top;
+    margin-top: .7rem;
 }

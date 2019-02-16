@@ -14,6 +14,7 @@
     color: white;
     position: relative;
     overflow: hidden;
+    transition: filter .3s;
 }
 
 .center{

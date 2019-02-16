@@ -24,7 +24,9 @@ class ImageModal extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.warpBGBlur(nextProps.isShow);
+        if (nextProps.isShow !== this.props.isShow) {
+            this.warpBGBlur(nextProps.isShow);
+        }
     }
 
     render() {

@@ -4,14 +4,13 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(0,0,0,0.2);
     display: flex;
     align-items: center;
     justify-content: center;
     user-select: none;
 }
 .blur{
-    filter: blur(3px);
+    filter: blur(3px) contrast(.9) brightness(.9);
 }
 
 .modal-img{
