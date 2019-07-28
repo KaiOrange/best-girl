@@ -1,0 +1,16 @@
+{
+  "short_name": "Best-Girl",
+  "name": "Best-Girl",
+  "description": "A Sample App Just For Fun.",
+  "icons": [
+    {
+      "src": "homescreen.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#ffffff",
+  "background_color": "#282c34"
+}

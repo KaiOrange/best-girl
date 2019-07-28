@@ -1,0 +1,38 @@
+:root{
+    --icon-width:2.2rem;
+}
+.tool-button{
+    background: radial-gradient(rgba(255,255,255,0.2) 30%, rgba(255,255,255,0.75) 100%);
+    border-radius: calc(var(--icon-width) / 2);
+    position: absolute;
+    right: 1rem;
+    top:1rem;
+    display: flex;
+    align-items:center;
+    transition: all .3s ease-in-out;
+    z-index:10;
+    justify-content:flex-end;
+}
+.tool-button-icon{
+    width: var(--icon-width);
+    height: var(--icon-width);
+
+    background: url("./tools.png") center right 0.3rem/1.6rem no-repeat;
+    cursor: pointer;
+    user-select: none;
+}
+.tool-button-colors{
+    transition: all .3s ease-in-out;
+    height: var(--icon-width);
+    overflow: hidden;
+}
+.tool-button-color{
+    width: 0.8rem;
+    height: 0.8rem;
+    margin-left: calc(var(--icon-width) / 2 - 0.4rem);
+    border-radius: 50%;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: text-top;
+    margin-top: .7rem;
+}
