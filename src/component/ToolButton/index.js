@@ -19,9 +19,9 @@ class ToolButton extends React.Component {
         let {isShowColors} = this.state;
         return (<div className="tool-button">
             <div className="tool-button-colors" style={{width:isShowColors?(colors.length * 1.5)+"rem":"0",opacity:isShowColors?"1":"0"}}>
-                {colors.map(item=>{
+                {colors.map((item,index)=>{
                     return <div key={item.color} className="tool-button-color" style={{background:item.color}} title={item.title} onClick={()=>{
-                        handleSelectColor(item)
+                        handleSelectColor(item,index)
                     }}></div>;
                 })}
             </div>
