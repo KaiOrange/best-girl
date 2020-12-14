@@ -235,7 +235,7 @@ class App extends Component {
                     if (!src) {
                         return null;
                     }
-                    let top = item.thumb_height || item.height;
+                    let top = item.height || item.thumb_height;
                     return (
                         <ImgCord 
                             key={src} 
