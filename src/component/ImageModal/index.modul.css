@@ -18,8 +18,8 @@
 }
 .modal-img>img{
     border-radius: 6px;
-    max-width: 95vw;
-    max-height: 95vh;
+    max-width: 90vw;
+    max-height: 90vh;
 }
 .modal-close-btn{
     position: absolute;
