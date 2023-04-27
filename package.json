@@ -13,7 +13,7 @@
     "urijs": "^1.19.1"
   },
   "scripts": {
-    "dev": "npx vercel dev",
+    "local": "npx vercel dev",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
