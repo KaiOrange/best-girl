@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import jsonp from 'jsonp';
+import axios from 'axios';
 import './App.css';
 import URI from 'urijs';
 import ImgCord from '../component/ImgCord';
@@ -27,8 +27,8 @@ class App extends Component {
                 this.word = COLORS[colorIndex].keywords || this.word;
             }
         }
-        this.baseURL = "https://pic.sogou.com/pics";
-        this.pageNumber = 50;
+        this.baseURL = "/api/sogou-api";
+        this.pageNumber = 48;
         this.currentPage = 0;
         this.timer = null;//定时器
         this.allImgDatas = [];//所有的图片信息
@@ -40,24 +40,22 @@ class App extends Component {
     }
     getURL = (obj={})=>{
         return URI(this.baseURL).query({
-            query:obj.word,
-            mode:1,
-            start:obj.currentPage,
-            reqType:"ajax",
-            reqFrom:"result",
-            tn:0,
+            mode: 1,
+            xml_len: obj.pageNumber,
+            start: obj.currentPage,
+            query: obj.word,
         }).toString();
     }
     fetchData = ()=>{
-        jsonp(this.getURL({word:this.word,pageNumber:this.pageNumber,currentPage:this.currentPage}), {},(err, data)=>{
-            var newImgDatas = data.items||[];
-            if (newImgDatas.length === 0) {
-                this.currentPage = 0;
-            } else {
-                this.currentPage += newImgDatas.length;
-            }
-            //只是把图片信息放在所有信息容器里面
-            this.allImgDatas = this.allImgDatas.concat(newImgDatas)
+        axios(this.getURL({word:this.word,pageNumber:this.pageNumber,currentPage:this.currentPage})).then(res => {
+          var newImgDatas = res.data.data.items||[];
+          if (newImgDatas.length === 0) {
+              this.currentPage = 0;
+          } else {
+              this.currentPage += newImgDatas.length;
+          }
+          //只是把图片信息放在所有信息容器里面
+          this.allImgDatas = this.allImgDatas.concat(newImgDatas);
         });
     }
 
@@ -146,7 +144,7 @@ class App extends Component {
                 }
                 if (this.allImgDatas.length > 0) {
                     let currentImg = this.allImgDatas.splice(0,1)[0];
-                    let imgWidth = Math.min(Number(currentImg.thumb_width||currentImg.width),this.clientWidth * 35 / 100);
+                    let imgWidth = Math.min(Number(currentImg.thumbWidth||currentImg.width),this.clientWidth * 35 / 100);
                     currentImg.left = Math.random() * (this.clientWidth - imgWidth);
                     currentImg.delayTime = Math.random() * 1;
                     currentImg.durationTime = Math.random() * 5 + 3;
@@ -206,11 +204,11 @@ class App extends Component {
                 </div>
                 <ToolButton handleSelectColor={this.handleSelectColor} colors={COLORS}/>
                 {this.state.imgDatas.map((item)=>{
-                    let src = item.thumbUrl || item.pic_url;
+                    let src = item.thumbUrl || item.picUrl;
                     if (!src) {
                         return null;
                     }
-                    let top = item.thumb_height || item.height;
+                    let top = item.thumbHeight || item.height;
                     return (
                         <ImgCord 
                             key={src} 
