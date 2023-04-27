@@ -54,7 +54,7 @@ class App extends Component {
       }).toString();
     }
     fetchData = ()=>{
-      axios(this.getURL({word:this.word,pageNumber:this.pageNumber,currentPage:this.currentPage})).then(res => {
+      axios(this.getURL({word:this.word,pageNumber:this.pageNumber,currentPage:this.currentPages[this.colorIndex]})).then(res => {
         var newImgDatas = res.data.data.items||[];
         if (newImgDatas.length === 0) {
           this.currentPages[this.colorIndex] = 0;
