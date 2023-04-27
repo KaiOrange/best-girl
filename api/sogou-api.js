@@ -4,16 +4,20 @@ export default async function handler(request, response) {
 
   let res = {
     data: {
-      items: []
+      data: {
+        items: []
+      }
     }
-  }
+  };
+  let url = 'https://pic.sogou.com/napi/pc/searchList?' + request.url.replace('/api/sogou-api', '');
+  console.log(url);
   try {
     res = await axios({
-      url: 'https://pic.sogou.com/napi/pc/searchList?' + request.url.replace('/api/sogou-api', ''),
+      url: url,
       method: 'GET',
     });  
   } catch (error) {
-    return response.status(500).send(error);
+    console.log('报错：', error);
   }
   
 
